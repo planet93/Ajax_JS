@@ -1,27 +1,113 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿body, html {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+body, p {
+    font-family: Verdana;
+    font-size: 14px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+#container {
+    height: 80%;
+    width: 85%;
+    position: absolute;
+    top: 12%;
+    left: 5%;
+    min-width: 320px;
+    background-color: #aaa;
+    border: 1px solid #ccc;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+#loginBlock {
+    position: absolute;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    height: 50px;
+    display: inline-block;
+    margin: 20px 10px 15px 40px;
+    padding: 35px 15px;
 }
-formOutput {
-    margin-top: 30px;
+
+#Error {
+    width: 80%;
+    left: 10%;
+    position: absolute;
+    height: 10%;
+    top: 91%;
+    color: Red;
+    font-weight: bold;
+    text-align: center;
+}
+
+#LastRefresh {
+    display: inline;
+    position: absolute;
+    font-size: xx-small;
+    text-align: right;
+    top: 7%;
+    left: 10%;
+    width: 80%;
+}
+
+#Username {
+    display: inline;
+    position: absolute;
+    font-size: medium;
+    font-weight: bold;
+    text-align: left;
+    top: 7%;
+    left: 10%;
+    width: 50%;
+}
+
+#Users {
+    position: absolute;
+    width: 25%;
+    left: 1%;
+    height: 98%;
+    top: 1%;
+    background-color: #ddd;
+    text-align: left;
+}
+
+#Messages {
+    position: absolute;
+    width: 72%;
+    left: 27%;
+    height: 80%;
+    top: 1%;
+    background-color: #ddd;
+    text-align: left;
+    font-size: x-small;
+    overflow-y: scroll;
+}
+
+#inputForm {
+    position: absolute;
+    width: 72%;
+    left: 27%;
+    height: 12%;
+    top: 82%;
+    min-height: 60px;
+    background: #eee;
+    border: 1px solid silver;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.serverMes {
+    color: #808080;
+    font-weight: bold;
+}
+
+button {
+    font-weight: bold;
+    width: 100px;
+}
+
+table, textarea {
+    width: 100%;
 }
