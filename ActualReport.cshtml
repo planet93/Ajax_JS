@@ -1,0 +1,35 @@
+﻿@model List<Phoenix.Infrastructure.ViewModel.Report.ActualReportView>
+
+
+
+@if (Model == null)
+{
+    return;
+}
+
+<b><font size=3 color="#000000">Отчет ActualReport</font></b>
+<br>
+<br>
+<table>
+    <thead>
+        <tr>
+            <th style="width: 90px">Product_1</th>
+            <th style="min-width:120px">Product_2</th>
+            <th style="min-width:120px">Product_3</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Product_1</td>
+                    <td>@item.Product_2</td>
+                    <td>@item.Product_3</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,338 @@
+﻿<style type="text/css">
+    .table {
+        border: none;
+    }
+
+        .table thead {
+            display: block;
+            width: 100%;
+            overflow: auto;
+        }
+
+        .table tbody {
+            display: block;
+            width: 100%;
+            height: 320px;
+            overflow: auto;
+        }
+
+        .handsontable th,
+        .table thead tr th {
+            text-transform: uppercase;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .table thead tr th,
+        .table tbody tr td {
+            vertical-align: middle;
+            font-size: 0.75em;
+            padding: 0;
+        }
+
+    .handsontable th,
+    .ht_master tr td {
+        font-size: 0.75em;
+    }
+
+    .color-white {
+        background-color: #fff;
+    }
+
+    .color-aqua {
+        background-color: #00ffff;
+    }
+</style>
+
+@section nav {
+
+}
+
+<div class="clr-bg-grey-100 container-sm">
+
+    <div class="row">
+
+        <div class="col-2">
+            <label>Год</label>
+            <select class="form-control form-control-sm" v-model="selyears" multiple>
+                <option v-for="year in years" v-bind:value="year">{{ year.Name }}</option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label>Страна</label>
+            <select class="form-control form-control-sm" v-model="selcountries" multiple>
+                <option v-for="country in countries" v-bind:value="country">{{ country.Name }}</option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label>Месяц</label>
+            <select class="form-control form-control-sm" v-model="selmonth">
+                <option v-for="month in months" v-bind:value="month">{{ month.Name }}</option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label>Client Group</label>
+            <select class="form-control form-control-sm" v-model="selclientgroup" @@change="changedClientGroup">
+                <option v-for="client in clientgroups" v-bind:value="client">{{ client.Name }}</option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label>Client</label>
+            <select class="form-control form-control-sm" v-model="selclient">
+                <option v-for="client in clients" v-bind:value="client">{{ client.Name }}</option>
+            </select>
+        </div>
+
+        <div class="col-2">
+            <label>Scenario</label>
+            <select class="form-control form-control-sm" v-model="selscenario">
+                <option v-for="scenario in scenarios" v-bind:value="scenario">{{ scenario.Name }}</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <!--Уровни Spend-->
+        <div class="col-2">
+            <label>Spend 1 lev</label>
+            <select class="form-control form-control-sm" v-model="selspend3" @@change="changedSpend3">
+                <option v-for="spend in  spends3" v-bind:value="spend">{{ spend.Name }}</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label>Spend 2 lev</label>
+            <select class="form-control form-control-sm" v-model="selspend2" @@change="changedSpend2">
+                <option v-for="spend in  spends2" v-bind:value="spend">{{ spend.Name }}</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label>Spend 3 lev</label>
+            <select class="form-control form-control-sm" v-model="selspend">
+                <option v-for="spend in  spends" v-bind:value="spend">{{ spend.Name }}</option>
+            </select>
+        </div>
+        <!--end Уровни Spend-->
+        <!--Уровни Brand-->
+        <div class="col-2">
+            <label>Group Brand Category</label>
+            <select class="form-control form-control-sm" v-model="selgroupcatbrand" @@change="changedGroupCatBrand">
+                <option v-for="brand in  groupcatbrands" v-bind:value="brand">{{ brand.Name }}</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label>Brand Category</label>
+            <select class="form-control form-control-sm" v-model="selcatbrand" @@change="changedCatBrand">
+                <option v-for="catbrand in  catbrands" v-bind:value="catbrand">{{ catbrand.Name }}</option>
+            </select>
+        </div>
+        <div class="col-2">
+            <label>Brand</label>
+            <select class="form-control form-control-sm" v-model="selbrand">
+                <option v-for="brand in  brands" v-bind:value="brand">{{ brand.Name }}</option>
+            </select>
+        </div>
+        <!--end Уровни Brand-->
+
+    </div>
+</div>
+
+<div class="container">
+    <label>Вы выбрали: </label>
+    <br />
+    <label>Страна:</label>
+    <span><i v-for="selcountry in selcountries"><b>{{selcountry.Name}} ;</b></i> </span>
+    <br />
+    <label>Год:</label>
+    <span><i v-for="selyear in selyears"><b>{{selyear.Name}} ;</b></i> </span>
+    <br />
+    <label>Месяц</label>
+    <span><i><b>{{selmonth.Name}}</b></i></span>
+    <br />
+    <label>Spend</label>
+    <span><i><b>{{selspend.Name}}</b></i></span>
+
+    <br />
+    <label>Client</label>
+    <span><i><b>{{selclient.Name}}</b></i></span>
+    <br />
+    <label>Brand Category</label>
+    <span><i><b>{{selcatbrand.Name}}</b></i></span>
+    <br />
+    <label>Brand</label>
+    <span><i><b>{{selbrand.Name}}</b></i></span>
+</div>
+
+<div class="container py-3">
+    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ActualModal" @@click="getActualReport">Выгрузить отчет ActualReport</button>
+</div>
+
+
+
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        var mappingReportApp = new Vue({
+            el: vueDefaultId,
+            data: {
+                title: 'Заголовок окна',
+                save: 'Выгрузить',
+                close: 'Закрыть',
+                years: [],
+                selyears: [],
+                countries: [],
+                selcountries: [],
+                months: [],
+                selmonth: { id: 1, Name: "Январь", Type: null },
+                scenarios: [],
+                selscenario:0,
+                clientgroups: [],
+                selclientgroup: 0,
+                clients: [],
+                selclient: 0,
+                spends3: [],
+                selspend3: 0,
+                spends2: [],
+                selspend2: 0,
+                spends: [],
+                selspend: 0,
+                groupcatbrands: [],
+                selgroupcatbrand: 0,
+                catbrands: [],
+                selcatbrand: 0,
+                brands: [],
+                selbrand: 0,
+                key:0
+
+
+            },
+            methods: {
+                loadClassifier: function (param, callback) {
+                    axios.post("/Classifier/GetClassifier", param).then(resp => {
+                        this.setClassifier(param.type, resp.data);
+                        if (callback != null) {
+                            callback();
+                        }
+                    });
+                },
+                setClassifier: function (type, data) {
+                    switch (type) {
+                        case 'Years':
+                            this.years = data;
+                            break;
+                        case 'Country':
+                            this.countries = data;
+                            //this.selcountry = data[0].Id;
+                            break;
+                        case 'Month':
+                            this.months = data;
+                            this.selmonth = data[0];
+                            break;
+                        case 'Spend3':
+                            this.spends3 = data;
+                            break;
+                        case 'Spend2':
+                            this.spends2 = data;
+                            break;
+                        case 'Spend':
+                            this.spends = data;
+                            break;
+                        case 'Scenario':
+                            this.scenarios = data;
+                            break;
+                        case 'ClientGroup':
+                            this.clientgroups = data;
+                            break;
+                        case 'Client':
+                            this.clients = data;
+                            break;
+                        case 'GroupBrandCategory':
+                            this.groupcatbrands = data;
+                            break;
+                        case 'BrandCategory':
+                            this.catbrands = data;
+                            break;
+                        case 'Brand':
+                            this.brands = data;
+                            break;
+                        default:
+                    }
+                },
+                loadClassifiers: function () {
+                    this.loadClassifier({ type: 'Country' });
+                    this.loadClassifier({ type: 'Month' });
+                    this.loadClassifier({ type: 'Years' });
+                    this.loadClassifier({ type: 'ClientGroup' });
+                    this.loadClassifier({ type: 'Client' });
+                    this.loadClassifier({ type: 'Scenario' });
+                    this.loadClassifier({ type: 'Spend3' });
+                    this.loadClassifier({ type: 'Spend2' });
+                    this.loadClassifier({ type: 'Spend' });
+                    this.loadClassifier({ type: 'GroupBrandCategory' });
+                    this.loadClassifier({ type: 'BrandCategory' });
+                    this.loadClassifier({ type: 'Brand' });
+                },
+                changedClientGroup: function () {
+                    this.loadClassifier({ type: 'Client', parentId: this.selclientgroup.Id });
+                },
+                changedSpend3: function () {
+                    this.loadClassifier({ type: 'Spend2', parentId: this.selspend3.Id});
+                },
+                changedSpend2: function () {
+                    this.loadClassifier({ type: 'Spend', parentId: this.selspend2.Id});
+                },
+                changedGroupCatBrand: function () {
+                    this.loadClassifier({ type: 'BrandCategory', parentId: this.selgroupcatbrand.Id});
+                },
+                changedCatBrand: function () {
+                    this.loadClassifier({ type: 'Brand', parentId: this.selcatbrand.Id });
+                },
+                collectData() {
+                    const formData = new FormData();
+                    for (var i = 0; i < this.selyears.length; i++) {
+                        formData.append('years[]', this.selyears[i].Id);
+                        console.log(this.selyears[i]);
+                    }
+                    for (var i = 0; i < this.selcountries.length; i++) {
+                        formData.append('countries[]', this.selcountries[i].Id);
+                        console.log(this.selcountries[i]);
+                    }
+                    formData.append('month', this.selmonth.Id);
+                    formData.append('clientgroup', this.selclientgroup.Id);
+                    formData.append('client', this.selclient.Id);
+                    formData.append('scenario', this.selscenario.Id);
+                    formData.append('spend3', this.selspend3.Id);
+                    formData.append('spend2', this.selspend2.Id);
+                    formData.append('spend', this.selspend.Id);
+                    formData.append('groupcatbrand', this.selgroupcatbrand.Id);
+                    formData.append('catbrand', this.selcatbrand.Id);
+                    formData.append('brand', this.selbrand.Id);
+                    return formData;
+                },
+                getActualReport() {
+                  
+                    var data = this.collectData();
+                    //LoadUrl("/Report/ActualReport", data)
+                    axios.post("/Report/ActualReport", data, { headers: { 'Content-Type': "multipart/form-data" } })
+                        .then(resp => {
+                            this.key = resp.data.Key;
+                            console.log(this.key);
+                            var param = "?keylist=" + this.key;
+                            window.location.href = "/Report/SaveActualReport" + param;
+                        });
+                },
+            },
+            mounted() {
+                this.loadClassifiers();
+            }
+        });
+
+    </script>
+}
